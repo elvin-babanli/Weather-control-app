@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Weather • Minimal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <meta name="color-scheme" content="light dark" />
+</head>
+<body>
+  
+  <div class="bg"></div>
+
+  <main class="shell">
+    <header class="hero">
+      <div class="logo" aria-hidden="true">
+        
+        <svg viewBox="0 0 64 64" role="img" aria-label="Cloud">
+          <path d="M45.5 49H20.2C14 49 9 44 9 37.8c0-5.4 3.7-10 8.8-11.3C19 17.6 25 13 31.9 13c7.4 0 13.5 5.7 14 13 4.6.8 8.1 4.9 8.1 9.7C54 44.6 50 49 45.5 49z" />
+        </svg>
+      </div>
+      <h1>Weather</h1>
+      <p class="subtitle">Server-rendered • No JavaScript • Clean and fast</p>
+    </header>
+
+    <section class="card">
+      <form action="/" method="get" class="form" novalidate>
+        <div class="field">
+          <label for="city" class="sr-only">City</label>
+          <input
+            id="city"
+            name="city"
+            type="text"
+            value="{{ city }}"
+            placeholder="Type a city… (e.g., Warsaw)"
+            required
+            autocomplete="off"
+            inputmode="text"
+          />
+        </div>
+        <button type="submit" class="btn">Check weather</button>
+      </form>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      <div class="output" aria-live="polite" aria-atomic="true">
+        {% if result %}
+          <div class="alert ok">
+            <span class="icon" aria-hidden="true">✓</span>
+            <span class="label">Result</span>
+          </div>
+          <pre class="terminal">{{ result }}</pre>
+        {% elif error %}
+          <div class="alert err">
+            <span class="icon" aria-hidden="true">!</span>
+            <span class="label">Error</span>
+          </div>
+          <pre class="terminal">{{ error }}</pre>
+        {% else %}
+          <div class="placeholder">
+            <span class="dot" aria-hidden="true"></span>
+            Enter a city to see the current weather.
+          </div>
+        {% endif %}
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p>Powered by OpenWeather • Built with Flask • No JS</p>
+    </footer>
+  </main>
+</body>
+</html>
